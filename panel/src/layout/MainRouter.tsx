@@ -9,6 +9,7 @@ import Iframe from "@/pages/Iframe";
 import NotFound from "@/pages/NotFound";
 import TestingPage from "@/pages/TestingPage/TestingPage";
 import LiveConsole from "@/pages/LiveConsole/LiveConsole";
+import VersionControl from "@/pages/VersionControl/VersionControl";
 
 
 type RouteType = {
@@ -105,6 +106,11 @@ const allRoutes: RouteType[] = [
         path: '/server/cfg-editor',
         title: 'CFG Editor',
         children: <Iframe legacyUrl="cfgEditor" />
+    },
+    {
+        path: '/server/version-control',
+        title: 'Version Control',
+        children: <VersionControl />
     },
     {
         path: '/server/setup',
