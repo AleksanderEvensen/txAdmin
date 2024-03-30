@@ -1,6 +1,5 @@
 import { existsSync } from "fs";
-import { SimpleGit, SimpleGitOptions, simpleGit } from 'simple-git';
-
+import { SimpleGit, SimpleGitOptions, simpleGit } from "simple-git";
 
 export class VersionControl {
     private git: SimpleGit;
@@ -29,7 +28,7 @@ export class VersionControl {
             };
             this.git = simpleGit(options);
         } catch (e) {
-            throw new Error("Failed to initialize simple-git\n"+e);
+            throw new Error("Failed to initialize simple-git\n" + e);
         }
     }
 
@@ -42,12 +41,16 @@ export class VersionControl {
         try {
             return await this.git.checkIsRepo();
         } catch (e) {
-            throw new Error("Faild to check the repo\n"+e);
+            throw new Error("Faild to check the repo\n" + e);
         }
     }
 
     async getBranches() {
-        const { branches } = await this.git.branch();
+        const { branches, current, detached } = await this.git.branchLocal();
+
+        if (detached) {
+            delete branches[current];
+        }
 
         return Object.entries(branches).map(
             ([_, { name, current, commit, label: commitMsg }]) => ({
@@ -57,6 +60,11 @@ export class VersionControl {
                 commitMsg,
             })
         );
+    }
+
+    async getCurrentCheckoutTarget() {
+        const { current } = await this.git.branchLocal();
+        return current;
     }
 
     async getCurrentBranch() {
@@ -83,12 +91,11 @@ export class VersionControl {
         const currentBranch = await this.getCurrentBranch();
         if (!currentBranch) return [];
 
-
         await this.fetchOrigin();
 
         const { all: logEntries } = await this.git.log({
             from: "HEAD",
-            to: `origin/master`,
+            to: `origin/main`,
         });
         return logEntries.map(
             ({ message, author_name, author_email, date, hash }) => ({
@@ -120,11 +127,3 @@ export class VersionControl {
         return await this.git.pull();
     }
 }
-
-
-
-
-
-
-
-

@@ -46,6 +46,7 @@ export default class AdminVault {
             'control.server': 'Start/Stop Server + Scheduler',
             'commands.resources': 'Start/Stop Resources',
             'server.cfg.editor': 'Read/Write server.cfg',
+            'server.version-control': 'Git: Manage version control',
             'txadmin.log.view': 'View txAdmin Log',
 
             'menu.vehicle': 'Spawn / Fix Vehicles',
