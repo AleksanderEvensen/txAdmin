@@ -48,6 +48,7 @@ export default class AdminVault {
             'commands.resources': 'Start/Stop Resources',
             'server.cfg.editor': 'Read/Write server.cfg', //FIXME: rename to server.cfg_editor
             'txadmin.log.view': 'View System Logs', //FIXME: rename to system.log.view
+            'server.version-control': 'Git: Manage version control',
 
             'menu.vehicle': 'Spawn / Fix Vehicles',
             'menu.clear_area': 'Reset world area',
