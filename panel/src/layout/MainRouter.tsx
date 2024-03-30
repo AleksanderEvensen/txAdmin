@@ -16,6 +16,7 @@ import SystemLogPage from "@/pages/SystemLogPage";
 import AddLegacyBanPage from "@/pages/AddLegacyBanPage";
 import DashboardPage from "@/pages/Dashboard/DashboardPage";
 import PlayerDropsPage from "@/pages/PlayerDropsPage/PlayerDropsPage";
+import VersionControl from "@/pages/VersionControl/VersionControl";
 
 
 type RouteType = {
@@ -102,6 +103,11 @@ const allRoutes: RouteType[] = [
         path: '/server/cfg-editor',
         title: 'CFG Editor',
         children: <Iframe legacyUrl="cfgEditor" />
+    },
+    {
+        path: '/server/version-control',
+        title: 'Version Control',
+        children: <VersionControl />
     },
     {
         path: '/server/setup',
