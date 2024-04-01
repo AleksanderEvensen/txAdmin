@@ -80,9 +80,9 @@ export default (config: WebServerConfigType) => {
     router.post('/cfgEditor/save', apiAuthMw, webRoutes.cfgEditor_save);
 
 	//Version Control
-	router.get('/version-control/getCheckoutTargets', apiAuthMw, webRoutes.versionControl_getCheckoutTargets)
-	router.get('/version-control/getLog', apiAuthMw, webRoutes.versionControl_getLog)
-    router.post('/version-control/checkoutTarget', apiAuthMw, webRoutes.versionControl_checkoutTarget);
+    router.get('/version-control/getCheckoutTargets', apiAuthMw, webRoutes.versionControl_getCheckoutTargets);
+	router.get('/version-control/getLog', apiAuthMw, webRoutes.versionControl_getLog);
+	router.post('/version-control/actions', apiAuthMw, webRoutes.versionControl_actions);
 
     //Control routes
     router.post('/intercom/:scope', intercomAuthMw, webRoutes.intercom);

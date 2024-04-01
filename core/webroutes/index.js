@@ -25,8 +25,8 @@ export { default as adminManager_actions } from './adminManager/actions';
 export { default as cfgEditor_page } from './cfgEditor/get';
 export { default as cfgEditor_save } from './cfgEditor/save';
 
+export { default as versionControl_actions } from './versionControl/actions';
 export { default as versionControl_getCheckoutTargets } from './versionControl/getCheckoutTargets';
-export { default as versionControl_checkoutTarget } from './versionControl/checkoutTarget';
 export { default as versionControl_getLog } from './versionControl/getLog';
 
 
