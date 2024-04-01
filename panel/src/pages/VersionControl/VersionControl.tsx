@@ -5,7 +5,7 @@ import { useAuthedFetcher, useBackendApi } from "@/hooks/fetch";
 import { useSetPageTitle } from "@/hooks/pages";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { BookMarkedIcon, Check, ChevronDownIcon, ChevronsUpDown, GitBranchIcon, RefreshCcwIcon, TagIcon } from "lucide-react";
+import { BookMarkedIcon, ChevronsUpDown, GitBranchIcon, RefreshCcwIcon, TagIcon } from "lucide-react";
 import { useState } from "react";
 
 
@@ -13,12 +13,12 @@ import { useState } from "react";
 export default function SourceControl() {
 	const authedFetcher = useAuthedFetcher();
     const setPageTitle = useSetPageTitle();
-	const callApi = useBackendApi({
+	const callAction = useBackendApi({
 		method: 'POST',
-		path: '/version-control/checkoutTarget'
+		path: '/version-control/actions'
 	});
-
 	setPageTitle();
+
 
 	const {isLoading, error, data: gitTargets} = useQuery<any>({
 		queryKey: ['getGitCheckoutTargets'],
@@ -31,8 +31,8 @@ export default function SourceControl() {
 		queryFn: () => authedFetcher(`/version-control/getLog`),
 	});
 
-	function handleCheckout(target: string) {
-		callApi({ data: {target} });
+	async function handleCheckout(target: string) {
+		console.log(await callAction({ data: { type: "checkout", target } }));
 	}
 
 	if (isLoading || commitsLoading) return <div>Loading...</div>
@@ -40,8 +40,8 @@ export default function SourceControl() {
 	if (error) return <div>Error occured: {error.message}</div>
 	if (commitError) return <div>Error occured: {commitError.message}</div>
 
-	console.log({ isLoading, error, gitTargets });
-	console.log({ commitsLoading, commitError, commitData });
+	// console.log({ isLoading, error, gitTargets });
+	// console.log({ commitsLoading, commitError, commitData });
 
 
 	const targets: { name: string, type: "branch" | "tag" }[] = [...gitTargets?.branches.map((branch: { name: string }) => ({ name: branch.name, type: "branch" })), ...gitTargets?.tags.map((tag: string) => ({ name: tag, type: "tag" }))];
